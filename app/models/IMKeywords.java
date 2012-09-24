@@ -17,29 +17,41 @@ import org.bson.types.ObjectId;
 
 
 @Entity
-public class IMKeywordStore extends Model {
+public class IMKeywords extends Model {
 
     @Id
     public String id;
-
-    public String groupId;
-    public String taskId;
-    public int runId;
-    
+   
     //use Set to avoid duplicated entries 
     public Set<String> keywords;
 
+    //MetaInfo
+    public String groupId;
+    //public String taskId;
+    public int runId;
+    
+    
+
     //public Blob picture;
 
-    public static Model.Finder<ObjectId, IMKeywordStore> find(){
-    	return new Model.Finder<ObjectId, IMKeywordStore>(ObjectId.class, IMKeywordStore.class);
+    // morphia finder
+    public static Model.Finder<ObjectId, IMKeywords> find(){
+    	return new Model.Finder<ObjectId, IMKeywords>(ObjectId.class, IMKeywords.class);
     }
     
     
-    public IMKeywordStore(String groupId, String taskId, int runId, Set<String> keywords)
+    //empty consturctor for fetch queries
+    public IMKeywords()
+    {
+    	
+    }
+    
+    
+    
+    
+    public IMKeywords(String groupId, int runId, Set<String> keywords)
     {
     	this.groupId = groupId;
-    	this.taskId = taskId;
     	this.runId = runId;
     	this.keywords = keywords;
     }
