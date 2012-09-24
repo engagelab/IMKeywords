@@ -9,7 +9,7 @@ import leodagdag.play2morphia.Model;
 import org.bson.types.ObjectId;
 
 @Entity
-public class IMKeyword extends Model {
+public class IMKeywordStore extends Model {
 
     @Id
     public ObjectId id;
@@ -22,8 +22,8 @@ public class IMKeyword extends Model {
 
     //public Blob picture;
 
-    public static Model.Finder<ObjectId, IMKeyword> find(){
-    	return new Model.Finder<ObjectId, IMKeyword>(ObjectId.class, IMKeyword.class);
+    public static Model.Finder<ObjectId, IMKeywordStore> find(){
+    	return new Model.Finder<ObjectId, IMKeywordStore>(ObjectId.class, IMKeywordStore.class);
     }
     
 
