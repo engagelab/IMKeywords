@@ -1,14 +1,11 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import models.IMKeywords;
 
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -49,7 +46,7 @@ public class IMKeywordStore extends Controller{
 	
 	
 	
-	public static Result fetchAllKeyWordStore()  {
+	public static Result fetchAllKeywordStore()  {
 		
     	List<IMKeywords> keywordStores = IMKeywords.find().all();
     	
@@ -61,13 +58,7 @@ public class IMKeywordStore extends Controller{
 	
 	
 	
-	public static Result fetchKeyWordsbyGroup(String groupId)  {
-		
-		//parse http requet to json
-//		JsonNode node =  ctx().request().body().asJson();
-//		String groupId = node.get("groupId").asText();
-//		String taskId = node.get("taskId").asText();
-//		int runId = node.get("runId").asInt();
+	public static Result fetchKeywordStorebyGroup(String groupId)  {
 		
 		//created new keyword store and save in db
 		IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).get();
@@ -78,46 +69,28 @@ public class IMKeywordStore extends Controller{
 	
 	
 	
-	public static Result updateKeywordsStore(String storeId) throws JsonParseException, JsonMappingException, IOException  {
+	public static Result updateKeywordStore(String storeId) throws JsonParseException, JsonMappingException, IOException  {
 		
 		ObjectMapper mapper = new ObjectMapper();
 
-		//parse http requet to json
+	
 		JsonNode node =  ctx().request().body().asJson();
-		//String groupId = node.get("groupId").asText();
-
+	
+		String groupId = node.get("groupId").asText();
 		
 		JsonNode keywords = node.findPath("keywords");
+		
 		TypeReference<Set<String>> collectionType = 
 			    new TypeReference<Set<String>>(){};
-			Set<String> strKeywords = 
-			    mapper.readValue(keywords, collectionType);
+		
+		Set<String> strKeywords = mapper.readValue(keywords, collectionType);
 		
 		
-		//created new keyword store and save in db
-    	//IMKeywordStore keywordStore = IMKeywordStore.find().filter("groupId", groupId).filter("runId", runId).get();
-			IMKeywords keywordStore = IMKeywords.find().byId(storeId);	
+		// FIXME search keywordStore by its own id
+			IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).get();	
     	keywordStore.keywords = strKeywords;
     	keywordStore.update();
 	    return ok(toJson(keywordStore));
-	  }
-	
-	
-	
-	
-	
-	public static Result deserialize() throws JsonGenerationException, JsonMappingException, IOException{
-    	
-		ObjectMapper mapper = new ObjectMapper();
-		
-		Collection<String> keywords = Arrays.asList("1","2","3","4","5");
-
-		// (Serialization)
-		String json = mapper.writeValueAsString(keywords);
-		
-		System.out.println(json); // [1,2,3,4,5]
-    	
-	    return ok(json);
 	  }
 	
 
