@@ -27,8 +27,8 @@ public class IMKeywords extends Model {
 
     //MetaInfo
     public String groupId;
-    //public String taskId;
-    public int runId;
+    public String taskId;
+    //public int runId;
     
     
 
@@ -49,10 +49,10 @@ public class IMKeywords extends Model {
     
     
     
-    public IMKeywords(String groupId, int runId, Set<String> keywords)
+    public IMKeywords(String groupId, String taskId, Set<String> keywords)
     {
     	this.groupId = groupId;
-    	this.runId = runId;
+    	this.taskId = taskId;
     	this.keywords = keywords;
     }
 

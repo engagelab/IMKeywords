@@ -3,12 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           		controllers.Application.index()
 
-POST	/keywords 						controllers.IMKeywordStore.addKeywordStore()
-GET		/keywords 						controllers.IMKeywordStore.fetchAllKeywordStore()
-GET		/keywords/:groupId 				controllers.IMKeywordStore.fetchKeywordStorebyGroup(groupId:String)
-PUT		/keywords/:storeId				controllers.IMKeywordStore.updateKeywordStore(storeId:String)
+POST	/keywords 							controllers.IMKeywordStore.addKeywordStore()
+GET		/keywords 							controllers.IMKeywordStore.fetchAllKeywordStore()
+GET		/keywords/:groupId/:taskId 			controllers.IMKeywordStore.fetchKeywordStorebyGroupAndTask(groupId:String, taskId:String)
+PUT		/keywords							controllers.IMKeywordStore.updateKeywordStore()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

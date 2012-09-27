@@ -27,7 +27,7 @@ public class IMKeywordStore extends Controller{
 		//parse http requet to json
 		JsonNode node =  ctx().request().body().asJson();
 		String groupId = node.get("groupId").asText();
-		int runId = node.get("runId").asInt();
+		String taskId = node.get("taskId").asText();
 		
 		//deserialize json array of strings
 		JsonNode keywords = node.findPath("keywords");
@@ -37,7 +37,7 @@ public class IMKeywordStore extends Controller{
 			    mapper.readValue(keywords, collectionType);
 		
 		//created new keyword store and save in db
-    	IMKeywords keywordStore = new IMKeywords(groupId, runId, strKeywords);
+    	IMKeywords keywordStore = new IMKeywords(groupId, taskId, strKeywords);
     	keywordStore.insert();
     	
 	    return ok(toJson(keywordStore));
@@ -58,10 +58,10 @@ public class IMKeywordStore extends Controller{
 	
 	
 	
-	public static Result fetchKeywordStorebyGroup(String groupId)  {
+	public static Result fetchKeywordStorebyGroupAndTask(String groupId, String taskId)  {
 		
 		//created new keyword store and save in db
-		IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).get();
+		IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).filter("taskId", taskId).get();
     	
 	    return ok(toJson(keywordStore));
 	  }
@@ -69,7 +69,7 @@ public class IMKeywordStore extends Controller{
 	
 	
 	
-	public static Result updateKeywordStore(String storeId) throws JsonParseException, JsonMappingException, IOException  {
+	public static Result updateKeywordStore() throws JsonParseException, JsonMappingException, IOException  {
 		
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -77,6 +77,7 @@ public class IMKeywordStore extends Controller{
 		JsonNode node =  ctx().request().body().asJson();
 	
 		String groupId = node.get("groupId").asText();
+		String taskId = node.get("taskId").asText();
 		
 		JsonNode keywords = node.findPath("keywords");
 		
@@ -87,7 +88,7 @@ public class IMKeywordStore extends Controller{
 		
 		
 		// FIXME search keywordStore by its own id
-			IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).get();	
+		IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).filter("taskId", taskId).get();
     	keywordStore.keywords = strKeywords;
     	keywordStore.update();
 	    return ok(toJson(keywordStore));
