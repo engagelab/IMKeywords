@@ -5,6 +5,8 @@
 !.gitignore
 
 # Ignore Play! working directory #
+project/project
+project/target
 db
 eclipse
 log
@@ -17,4 +19,5 @@ server.pid
 .project
 .target
 target
+
 
