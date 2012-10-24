@@ -1,9 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import models.IMKeywords;
 
@@ -32,9 +30,9 @@ public class IMKeywordStore extends Controller{
 		
 		//deserialize json array of strings
 		JsonNode keywords = node.findPath("keywords");
-		TypeReference<Set<String>> collectionType = 
-			    new TypeReference<Set<String>>(){};
-			Set<String> strKeywords = 
+		TypeReference<List<String>> collectionType = 
+			    new TypeReference<List<String>>(){};
+			List<String> strKeywords = 
 			    mapper.readValue(keywords, collectionType);
 		
 		//created new keyword store and save in db
@@ -86,10 +84,10 @@ public class IMKeywordStore extends Controller{
 		
 		JsonNode keywords = node.findPath("keywords");
 		
-		TypeReference<Set<String>> collectionType = 
-			    new TypeReference<Set<String>>(){};
+		TypeReference<List<String>> collectionType = 
+			    new TypeReference<List<String>>(){};
 		
-		Set<String> strKeywords = mapper.readValue(keywords, collectionType);
+		List<String> strKeywords = mapper.readValue(keywords, collectionType);
 		
 		
 		// FIXME search keywordStore by its own id

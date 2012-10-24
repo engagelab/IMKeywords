@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Set;
+import java.util.List;
 
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
@@ -23,7 +23,7 @@ public class IMKeywords extends Model {
     public String id;
    
     //use Set to avoid duplicated entries 
-    public Set<String> keywords;
+    public List<String> keywords;
 
     //MetaInfo
     public String groupId;
@@ -49,7 +49,7 @@ public class IMKeywords extends Model {
     
     
     
-    public IMKeywords(String groupId, String taskId, Set<String> keywords)
+    public IMKeywords(String groupId, String taskId, List<String> keywords)
     {
     	this.groupId = groupId;
     	this.taskId = taskId;
