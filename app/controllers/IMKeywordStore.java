@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -63,6 +64,10 @@ public class IMKeywordStore extends Controller{
 		//created new keyword store and save in db
 		IMKeywords keywordStore = IMKeywords.find().filter("groupId", groupId).filter("taskId", taskId).get();
     	
+		if (keywordStore == null) {
+			keywordStore = new IMKeywords();
+			
+		}
 	    return ok(toJson(keywordStore));
 	  }
 	
